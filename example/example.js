@@ -28,13 +28,13 @@ map["/"] = function(env) {
         
     response.write('<a href="hello">hello</a><br />');
     response.write('<a href="httproulette">httproulette</a><br />');
-    response.write('<a href="lobster">lobster</a><br />');
+    response.write('<a href="narwhal">narwhal</a><br />');
     response.write('<a href="stream">stream</a><br />');
 
     return response.finish();
 }
 
-map["/lobster"] = Jack.Lobster;
+map["/narwhal"] = Jack.Narwhal;
 
 // use the JSONP middleware on this one
 map["/jsontest"] = Jack.JSONP(function(env) {
