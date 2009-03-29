@@ -23,9 +23,9 @@ Jack: Rack for JavaScript
 
         ./bin/jackup example/hello.js
         
-    or (this one specifies a path to an extra library that needs to be included, "lib/jack/lobster.js"):
+    or (this one specifies a path to an extra library that needs to be included, "lib/jack/narwhal.js"):
     
-        ./bin/jackup -r lib/jack/lobster.js example/example.js
+        ./bin/jackup -r lib/jack/narwhal.js example/example.js
     
     Jackup configuration files simply contain JavaScript with the last statement being a reference to a Jack application (or middleware)
 
