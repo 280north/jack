@@ -30,6 +30,8 @@ map["/"] = function(env) {
     response.write('<a href="httproulette">httproulette</a><br />');
     response.write('<a href="lobster">lobster</a><br />');
     response.write('<a href="stream">stream</a><br />');
+    response.write('<a href="stream1">stream1</a><br />');
+    response.write('<a href="cookie">cookie</a><br />');
 
     return response.finish();
 }
@@ -53,6 +55,37 @@ map["/stream"] = function(env) {
             }
         }
     }];
+}
+
+
+map["/stream1"] = function(env) {
+    var res = new Jack.Response(200, {"Transfer-Encoding":"chunked"});
+    return res.finish(function(response) {
+        for (var i = 0; i < 50; i++) { 
+            java.lang.Thread.currentThread().sleep(100); 
+            response.write("hellohellohellohellohellohellohellohellohellohellohellohellohello<br />"); 
+        }
+    });
+}
+
+map["/cookie"] = function(env) {
+    var request = new Jack.Request(env),
+        response = new Jack.Response();
+        
+    var name = request.POST("name");
+    
+    if (typeof name === "string") {
+        response.write("setting name: " + name + "<br />");
+        response.setCookie("name", name);
+    }
+    
+    var cookies = request.cookies();
+    if (cookies["name"])
+        response.write("previously saved name: " + cookies["name"] +"<br />")
+        
+    response.write('<form action="cookie" method="post" enctype="multipart/form-data"><input type="text" name="name" value="" id="some_name"><input type="submit" value="go"></p></form>')
+    
+    return response.finish();
 }
 
 // middleware:
