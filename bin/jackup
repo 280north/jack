@@ -1,9 +1,6 @@
-#!/usr/bin/env java org.mozilla.javascript.tools.shell.Main
-
-load("core.js");
+#!/usr/bin/env narwhal
 
 (function (evalGlobal) {
-
 
 function main() {
     
