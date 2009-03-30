@@ -119,7 +119,7 @@ function main() {
     }
 
     // Load the required handler.
-    handler = require("jack/handler/" + (server || "jetty")).Handler;
+    handler = require("jack/handler/" + (server || "simple")).Handler;
     
     handler.run(app, options);
 }
