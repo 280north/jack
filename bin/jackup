@@ -42,7 +42,7 @@ function main() {
                 break;
             case "-p" :
             case "--port" :
-                options.host = ARGV.shift();
+                options.port = parseInt(ARGV.shift());
                 break;
             case "-E" :
             case "--env" :
