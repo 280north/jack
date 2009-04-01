@@ -139,16 +139,23 @@ Handlers:
     V8CGI:          complete (?), for use with the v8cgi project (http://code.google.com/p/v8cgi/)
 
 Middleware:
-    CommonLogger:   mostly complete (needs correct date formatting)
+    Cascade:        complete
+    CommonLogger:   complete
     ContentLength:  complete
-    File:           broken for non-ASCII files
+    Deflater:       missing
+    Directory:      missing
+    File:           complete
     Head:           complete
     JSONP:          complete
     Lint:           mostly complete (needs stream wrappers)
     MethodOverride: complete
+    Mock:           missing
+    Recursive:      missing
     ShowExceptions: simple version complete, needs better HTML output
+    ShowStatus:     missing
     Static:         complete
     URLMap:         complete
+
     
 
 == Acknowledgments

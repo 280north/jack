@@ -1,9 +1,6 @@
-#!/usr/bin/env java org.mozilla.javascript.tools.shell.Main
-
-load("core.js");
+#!/usr/bin/env narwhal
 
 (function (evalGlobal) {
-
 
 function main() {
     
@@ -45,7 +42,7 @@ function main() {
                 break;
             case "-p" :
             case "--port" :
-                options.host = ARGV.shift();
+                options.port = parseInt(ARGV.shift());
                 break;
             case "-E" :
             case "--env" :
@@ -122,7 +119,7 @@ function main() {
     }
 
     // Load the required handler.
-    handler = require("jack/handler/" + (server || "jetty")).Handler;
+    handler = require("jack/handler/" + (server || "simple")).Handler;
     
     handler.run(app, options);
 }
