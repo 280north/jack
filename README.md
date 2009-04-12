@@ -1,9 +1,9 @@
 Jack: a minimal webserver interface for JavaScript
 ==================================================
 
-    Jack is a webserver interface inspired by Ruby's Rack (http://rack.rubyforge.org/) and Python's WSGI (http://www.wsgi.org/), with adjustments to suit JavaScript where appropriate.
+Jack is a webserver interface inspired by Ruby's Rack (http://rack.rubyforge.org/) and Python's WSGI (http://www.wsgi.org/), with adjustments to suit JavaScript where appropriate.
 
-    It provides a common interface between web servers and web applications or frameworks written in JavaScript. At it's core, Jack is simply a protocol that defines an interface servers and applications can conform to. It also consists of an implementation of a set of handlers (to connect to web servers), adapters (to connect to JavaScript frameworks and applications), middleware (to intercept and manipulate requests or responses), and utilities (to make using Jack easier) implemented in JavaScript.
+It provides a common interface between web servers and web applications or frameworks written in JavaScript. At it's core, Jack is simply a protocol that defines an interface servers and applications can conform to. It also consists of an implementation of a set of handlers (to connect to web servers), adapters (to connect to JavaScript frameworks and applications), middleware (to intercept and manipulate requests or responses), and utilities (to make using Jack easier) implemented in JavaScript.
 
 ### Homepage:
 
