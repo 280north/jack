@@ -20,8 +20,8 @@ Jack: a minimal webserver interface for JavaScript
 
 ### IRC:
 
-* #jack-js on irc.freenode.net
-* #serverjs on irc.freenode.net (unofficial)
+* \#jack-js on irc.freenode.net
+* \#serverjs on irc.freenode.net (unofficial)
 
 
 Getting Started
