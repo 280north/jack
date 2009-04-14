@@ -1,12 +1,1 @@
-Your project's WAR should include the following files:
-
-WEB-INF/app/app.js
-WEB-INF/narwhal/lib (including all Narwhal and Jack libraries)
-WEB-INF/narwhal/narwhal-rhino.js
-WEB-INF/narwhal/narwhal.js
-WEB-INF/classes/org/jackjs/JackServlet.class (compiled from JackServlet.java)
-WEB-INF/lib/js.jar
-
-The last statement of app.js must be the main Jack function. Alternatively, define a "function" parameter in web.xml with the name of the function.
-
-Optionally specify different files by changing the "modulePath" and "module" parameters for the servlet.
+Moved to http://github.com/tlrobinson/jack-servlet/
