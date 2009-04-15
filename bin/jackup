@@ -2,6 +2,9 @@
 
 (function (evalGlobal) {
 
+var args = system.args;
+var print = system.print;
+
 function main() {
     
     var File = require("file").File;
@@ -15,16 +18,16 @@ function main() {
         extensions = require.loader.getExtensions(),
         preload = [];
 
-    while (ARGV.length) {
-        var arg = ARGV.shift();
+    while (args.length) {
+        var arg = args.shift();
         switch (arg) {
             case "-e" :
             case "--eval" :
-                configFile = ARGV.shift();
+                configFile = args.shift();
                 break;
             case "-I" :
             case "--include" :
-                paths.unshift.apply(paths, ARGV.shift().split(":"));
+                paths.unshift.apply(paths, args.shift().split(":"));
                 break;
             case "-d" :
             case "--debug" :
@@ -36,23 +39,23 @@ function main() {
                 break;
             case "-s" :
             case "--server" :
-                server = ARGV.shift();
+                server = args.shift();
                 break;
             case "-o" :
             case "--host" :
-                options.host = ARGV.shift();
+                options.host = args.shift();
                 break;
             case "-p" :
             case "--port" :
-                options.port = parseInt(ARGV.shift());
+                options.port = parseInt(args.shift());
                 break;
             case "-E" :
             case "--env" :
-                env = ARGV.shift();
+                env = args.shift();
                 break;
             case "-r" :
             case "--require" :
-                preload.push.apply(preload, ARGV.shift());
+                preload.push.apply(preload, args.shift());
                 break;
             case "-h" :
             case "--help" :
