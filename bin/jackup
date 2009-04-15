@@ -70,7 +70,7 @@ function main() {
     if (!configFile) {
         config = config || "config.ju"
 
-        var configFile = File.read(config);
+        var configFile = String(File.read(config));
         if (!configFile)
             throw new Error("configuration " + config + " not found");
     }
