@@ -4,6 +4,8 @@
 
 function main() {
     
+    var File = require("file").File;
+    
     var env = "development",
         options = { port : 8080, host : "0.0.0.0" },
         server = null,
@@ -68,7 +70,7 @@ function main() {
     if (!configFile) {
         config = config || "config.ju"
 
-        var configFile = readFile(config);
+        var configFile = File.read(config);
         if (!configFile)
             throw new Error("configuration " + config + " not found");
     }
