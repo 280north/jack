@@ -94,4 +94,4 @@ map["/cookie"] = function(env) {
 var app = Jack.ContentLength(Jack.URLMap(map));
 
 // serve the "/example" directory files
-Jack.Static(app, { urls : ["/example"] });
+exports.app = Jack.Static(app, { urls : ["/example"] });
