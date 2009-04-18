@@ -1,7 +1,5 @@
 #!/usr/bin/env narwhal
 
-(function (evalGlobal) {
-
 var args = system.args;
 var print = system.print;
 
@@ -154,10 +152,4 @@ try {
 } catch (e) {
     print(e.message);
 }
-
-
-/* return evalGlobal from global context */
-})(function () {
-    return eval(arguments[0]);
-});
 
