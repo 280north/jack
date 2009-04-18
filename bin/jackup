@@ -5,27 +5,26 @@ var print = system.print;
 
 function main() {
     
-    var File = require("file").File;
+    var File = require("file"),
+        Dir = require("dir");
     
-    var env = "development",
+    var environment = "development",
         options = { port : 8080, host : "0.0.0.0" },
         server = null,
         config = null,
-        configFile = null,
-        paths = require.loader.getPaths(),
-        extensions = require.loader.getExtensions(),
-        preload = [];
+        evalText = null;
 
     while (args.length) {
         var arg = args.shift();
         switch (arg) {
             case "-e" :
             case "--eval" :
-                configFile = args.shift();
+                evalText = args.shift();
                 break;
             case "-I" :
             case "--include" :
-                paths.unshift.apply(paths, args.shift().split(":"));
+                var newPaths = Array.prototype.unshift.apply(require.loader.getPaths(), args.shift().split(":"));
+                require.loader.setPaths(newPaths);
                 break;
             case "-d" :
             case "--debug" :
@@ -49,11 +48,7 @@ function main() {
                 break;
             case "-E" :
             case "--env" :
-                env = args.shift();
-                break;
-            case "-r" :
-            case "--require" :
-                preload.push.apply(preload, args.shift());
+                environment = args.shift();
                 break;
             case "-h" :
             case "--help" :
@@ -68,61 +63,57 @@ function main() {
         }
     }
 
-    if (!configFile) {
-        config = config || "config.ju"
+    if (!evalText) {
+        config = config || "jackconfig.js"
 
-        var configFile = String(File.read(config));
-        if (!configFile)
+        if (config.charAt(0) !== "/")
+            config = File.join(Dir.pwd(), config);
+
+        print("Loading configuration module at " + config);
+
+        var configModule = require(config);
+        if (!configModule)
             throw new Error("configuration " + config + " not found");
     }
 
-    /*
-    try {
-        // arrange for modules to be loaded in a sandbox
-        // that reloads modules.  replace the global require function so that 
-        // its available inside eval for the config file
-        var sandboxing = require('chiron/sandbox');
-        require = sandboxing.Sandbox({
-            environment: require.environment,
-            loader: sandboxing.FileLoader({
-                paths: paths,
-                extensions: extensions,
-                debug: $DEBUG
-            })
-        });
-    } catch (exception) {
-        // everything will still work when
-        // chiron is not installed.
-        require.loader.setPaths(paths);
-        require.loader.setExtensions(extensions);
+    var innerApp, app;
+
+    if (evalText)
+        innerApp = evalGlobal(evalText);
+    else
+        innerApp = configModule["app"];
+
+    if (typeof configModule[environment] === "function")
+    {
+        app = configModule[environment](innerApp);
     }
-    */
-
-    /* preload modules noted by --require options */
-    for (var i = 0; i < preload.length; i++)
-        require(preload[i], configFile);
-
-    var innerApp = evalGlobal(configFile),
-        app;
-
-    switch (env) {
-        case "development" :
-            app = require("jack/commonlogger").CommonLogger(
-                    require("jack/showexceptions").ShowExceptions(
-                        require("jack/lint").Lint(innerApp)));
-            break;
-        case "deployment" :
-            app = require("jack/commonlogger").CommonLogger(innerApp);
-            break;
-        case "none" :
-            app = innerApp;
-            break;
-        default :
-            throw new Error("Unknown environment");
+    else
+    {
+        switch (environment) {
+            case "development" :
+                app = require("jack/commonlogger").CommonLogger(
+                        require("jack/showexceptions").ShowExceptions(
+                            require("jack/lint").Lint(innerApp)));
+                break;
+            case "deployment" :
+                app = require("jack/commonlogger").CommonLogger(innerApp);
+                break;
+            case "none" :
+                app = innerApp;
+                break;
+            default :
+                throw new Error("Unknown environment (development, deployment, none)");
+        }
+    }
+    
+    if (!server)
+    {
+        //if (system.platform === "rhino")
+            server = "simple";
     }
 
     // Load the required handler.
-    handler = require("jack/handler/" + (server || "simple")).Handler;
+    handler = require("jack/handler/" + server).Handler;
     
     handler.run(app, options);
 }
@@ -131,16 +122,16 @@ function printUsage() {
     throw new Error("Usage: jackup [jack options] [jackup config]\n\
 \n\
     Jack options:\n\
-      -s, --server SERVER      serve using SERVER (jetty/simple)\n\
+      -a, --app APPNAME        name of the module property to use as the app (default: app)\n\
+      -s, --server SERVER      serve using SERVER (default: simple)\n\
       -o, --host HOST          listen on HOST (default: 0.0.0.0)\n\
-      -p, --port PORT          use PORT (default: 9292)\n\
-      -E, --env ENVIRONMENT    use ENVIRONMENT for defaults (default: development)\n\
+      -p, --port PORT          use PORT (default: 8080)\n\
+      -E, --env ENVIRONMENT    use ENVIRONMENT: deployment, development (default), none\n\
+      -e, --eval LINE          evaluate a LINE of code to be used as the app (overrides module)\n\
 \n\
-      -e, --eval LINE          evaluate a LINE of code\n\
       -d, --debug              set debugging flags (set $DEBUG to true)\n\
       -w, --warn               turn warnings on for your script\n\
       -I, --include PATH       specify $LOAD_PATH (may be used more than once)\n\
-      -r, --require LIBRARY    require the library, before executing your script\n\
 \n\
     Common options:\n\
       -h, --help               Show this message\n\

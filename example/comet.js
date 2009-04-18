@@ -75,4 +75,4 @@ map["/listen"] = function(env) {
 
 
 // apply the URLMap
-Jack.ContentLength(Jack.URLMap(map));
+exports.app = Jack.ContentLength(Jack.URLMap(map));
