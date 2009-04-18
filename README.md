@@ -37,8 +37,23 @@ Run one of the following examples:
 
     jackup jack/example/hello.js
     jackup jack/example/example.js
+    
+Or if the current directory contains "jackconfig.js" you can just run "jackup"
 
-Jackup configuration files simply contain JavaScript with the last statement being a reference to a Jack application (or middleware)
+    cd jack/example
+    jackup
+
+A Jackup configuration file is simply a normal module that exports a function called "app":
+
+    exports.app = function(env) {
+        return [200, {"Content-Type":"text/plain"}, "Hello world!"];
+    }
+    
+If the module also exports a function with the same name as the chosen environment (using the "-E" command line option, "development" by default) that function will be used to add middleware to your application. This allows you to define custom sets of middleware for different environments. For example:
+
+    exports.development = function(app) {
+        return Jack.CommonLogger(Jack.ShowExceptions(Jack.Lint(Jack.ContentLength(app))));
+    }
 
 To see other options of Jackup, use the "-h" option:
 
@@ -68,9 +83,9 @@ If you need something more complex with extra state, you can provide a "construc
 
 Be careful to ensure your application and middleware is thread-safe if you plan to use a multithreaded server like Jetty and Simple.
 
-The first (and only) argument to the application method is the "environment", which contains a number of properties. Many of the standard CGI environment variables are included, as well as some Jack specific properties which are prefixed with "jack.".
+The first (and only) argument to the application method is the "environment" object, which contains a number of properties. Many of the standard CGI environment variables are included, as well as some Jack specific properties which are prefixed with "jack.".
 
-The Request and Response objects are not part of the Jack spec, but may be helpful in parsing request parameters, and building a valid response. They are used as follows:
+The Request and Response objects are not part of the Jack specification, but may be helpful in parsing request parameters, and building a valid response. They are used as follows:
 
     var req = new Jack.Request(env);
     var name = req.GET("name");
