@@ -83,7 +83,9 @@ map["/cookie"] = function(env) {
     if (cookies["name"])
         response.write("previously saved name: " + cookies["name"] +"<br />")
         
-    response.write('<form action="cookie" method="post" enctype="multipart/form-data"><input type="text" name="name" value="" id="some_name"><input type="submit" value="go"></p></form>')
+    response.write('<form action="cookie" method="post" enctype="multipart/form-data">');
+    response.write('<input type="text" name="name" value="" id="some_name">');
+    response.write('<input type="submit" value="go"></form>');
     
     return response.finish();
 }
