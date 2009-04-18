@@ -113,7 +113,7 @@ function main() {
     }
 
     // Load the required handler.
-    handler = require("jack/handler/" + server).Handler;
+    var handler = require("jack/handler/" + server).Handler;
     
     handler.run(app, options);
 }
