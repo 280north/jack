@@ -10,8 +10,10 @@ function main() {
     
     var environment = "development",
         options = { port : 8080, host : "0.0.0.0" },
+        config = "jackconfig.js",
+        appName = "app",
         server = null,
-        config = null,
+        reload = false,
         evalText = null;
 
     while (args.length) {
@@ -34,6 +36,10 @@ function main() {
             case "--warn" :
                 $WARN = true;
                 break;
+            case "-a" :
+            case "--app" :
+                appName = args.shift();
+                break;
             case "-s" :
             case "--server" :
                 server = args.shift();
@@ -50,6 +56,10 @@ function main() {
             case "--env" :
                 environment = args.shift();
                 break;
+            case "-r" :
+            case "--reload" :
+                reload = true;
+                break;
             case "-h" :
             case "--help" :
                 printUsage();
@@ -63,9 +73,10 @@ function main() {
         }
     }
 
+    var innerApp
+    
     if (!evalText) {
-        config = config || "jackconfig.js"
-
+        
         if (config.charAt(0) !== "/")
             config = File.join(Dir.pwd(), config);
 
@@ -74,15 +85,15 @@ function main() {
         var configModule = require(config);
         if (!configModule)
             throw new Error("configuration " + config + " not found");
+            
+        if (reload)    
+            innerApp = require("jack/reloader").Reloader(config, appName, require);
+        else
+            innerApp = configModule[appName];
     }
-
-    var innerApp, app;
-
-    if (evalText)
-        innerApp = evalGlobal(evalText);
     else
-        innerApp = configModule["app"];
-
+        innerApp = evalGlobal(evalText);
+    
     if (typeof configModule[environment] === "function")
     {
         app = configModule[environment](innerApp);
@@ -128,6 +139,7 @@ function printUsage() {
       -p, --port PORT          use PORT (default: 8080)\n\
       -E, --env ENVIRONMENT    use ENVIRONMENT: deployment, development (default), none\n\
       -e, --eval LINE          evaluate a LINE of code to be used as the app (overrides module)\n\
+      -r, --reload             reload application on each request\n\
 \n\
       -d, --debug              set debugging flags (set $DEBUG to true)\n\
       -w, --warn               turn warnings on for your script\n\
