@@ -118,8 +118,14 @@ function main() {
     
     if (!server)
     {
-        //if (system.platform === "rhino")
+        if (system.platform === "rhino")
             server = "simple";
+        else if (system.platform === "k7")
+            server = "shttpd";
+        else if (system.platform === "v8cgi")
+            server = "v8cgi";
+        else
+            throw new Error("Unknown platform " + system.platform + ". Specify a server with the \"-s\" option.");
     }
 
     // Load the required handler.
