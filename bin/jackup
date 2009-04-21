@@ -10,7 +10,7 @@ function main() {
     
     var environment = "development",
         options = { port : 8080, host : "0.0.0.0" },
-        config = "jackconfig.js",
+        config = null,
         appName = "app",
         server = null,
         reload = false,
@@ -73,10 +73,13 @@ function main() {
         }
     }
 
-    var innerApp
+    var app, innerApp;
     
     if (!evalText) {
         
+        if (!config)
+            config = "jackconfig";
+
         if (config.charAt(0) !== "/")
             config = File.join(Dir.pwd(), config);
 
@@ -150,8 +153,4 @@ function printUsage() {
           --version            Show version");
 }
 
-try {
-    main();
-} catch (e) {
-    print(e.message);
-}
+main();
