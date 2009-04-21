@@ -69,12 +69,12 @@ function main() {
         }
     }
 
-    var innerApp
+    var app, innerApp;
     
     if (!evalText) {
         
         if (!config)
-            config = "jackconfig.js"
+            config = "jackconfig";
 
         if (config.charAt(0) !== "/")
             config = File.join(Dir.pwd(), config);
