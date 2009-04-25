@@ -119,12 +119,7 @@ function main() {
     if (!server)
     {
         if (system.env['PHP_FCGI_CHILDREN'] !== undefined)
-        {
-            if (system.platform === "k7")
-                server = "fastcgi-k7";
-            else
-                throw new Error("No known FastCGI handler for platforn " + system.platform);
-        }
+            server = "fastcgi";
         else if (system.platform === "rhino")
             server = "simple";
         else if (system.platform === "k7")
