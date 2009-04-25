@@ -1,5 +1,3 @@
-var Narwhal = require("jack/narwhal").Narwhal;
-
 // the simplest possible Roundabout handler: just return a string
 Roundabout.GET("/", function() {
     return 'hello world!<br />'+
@@ -11,7 +9,7 @@ Roundabout.GET("/", function() {
 });
 
 // Roundabout can use Jack apps as handlers too
-Roundabout.GET("/asdf", Narwhal);
+Roundabout.GET("/asdf", require("jack/narwhal").run);
 
 // alternate syntax. 
 Roundabout.route({
