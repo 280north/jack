@@ -49,7 +49,7 @@ server.port = $PORT
 
 fastcgi.debug = 1
 fastcgi.server = (
-	"/" => ((
+	"" => ((
 		"bin-path" => "$BIN_PATH",
 		"min-procs" => 1,
 		"max-procs" => 1,

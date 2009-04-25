@@ -90,6 +90,30 @@ map["/cookie"] = function(env) {
     return response.finish();
 }
 
+map["/info"] = function(env) {
+    var request = new Jack.Request(env),
+        response = new Jack.Response(200, { "Content-Type" : "text/plain" });
+    
+    var params = request.params();
+    
+    response.write("========================= params =========================\n");
+    
+    for (var i in params)
+        response.write(i + "=>" + params[i] + "\n")
+    
+    response.write("========================= env =========================\n");
+    
+    for (var i in env)
+        response.write(i + "=>" + env[i] + "\n")
+    
+    response.write("========================= system.env =========================\n");
+    
+    for (var i in system.env)
+        response.write(i + "=>" + system.env[i] + "\n")
+
+    return response.finish();
+}
+
 // middleware:
 
 // apply the URLMap
