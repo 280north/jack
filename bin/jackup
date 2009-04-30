@@ -69,7 +69,7 @@ function main() {
         }
     }
 
-    var app, innerApp;
+    var app, innerApp, configModule;
     
     if (!evalText) {
         
@@ -81,7 +81,7 @@ function main() {
 
         print("Loading configuration module at " + config);
 
-        var configModule = require(config);
+        configModule = require(config);
         if (!configModule)
             throw new Error("configuration " + config + " not found");
             
@@ -91,9 +91,9 @@ function main() {
             innerApp = configModule[appName];
     }
     else
-        innerApp = evalGlobal(evalText);
+        innerApp = system.evalGlobal(evalText);
     
-    if (typeof configModule[environment] === "function")
+    if (configModule && typeof configModule[environment] === "function")
     {
         app = configModule[environment](innerApp);
     }
