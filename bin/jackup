@@ -1,10 +1,6 @@
 #!/usr/bin/env narwhal
 
-var args = system.args;
-var print = system.print;
-
 function main() {
-    
     var File = require("file"),
         Dir = require("dir");
     
@@ -16,16 +12,16 @@ function main() {
         reload = false,
         evalText = null;
 
-    while (args.length) {
-        var arg = args.shift();
+    while (system.args.length) {
+        var arg = system.args.shift();
         switch (arg) {
             case "-e" :
             case "--eval" :
-                evalText = args.shift();
+                evalText = system.args.shift();
                 break;
             case "-I" :
             case "--include" :
-                var newPaths = Array.prototype.unshift.apply(require.loader.getPaths(), args.shift().split(":"));
+                var newPaths = Array.prototype.unshift.apply(require.loader.getPaths(), system.args.shift().split(":"));
                 require.loader.setPaths(newPaths);
                 break;
             case "-d" :
@@ -34,23 +30,23 @@ function main() {
                 break;
             case "-a" :
             case "--app" :
-                appName = args.shift();
+                appName = system.args.shift();
                 break;
             case "-s" :
             case "--server" :
-                server = args.shift();
+                server = system.args.shift();
                 break;
             case "-o" :
             case "--host" :
-                options.host = args.shift();
+                options.host = system.args.shift();
                 break;
             case "-p" :
             case "--port" :
-                options.port = parseInt(args.shift());
+                options.port = parseInt(system.args.shift());
                 break;
             case "-E" :
             case "--env" :
-                environment = args.shift();
+                environment = system.args.shift();
                 break;
             case "-r" :
             case "--reload" :
