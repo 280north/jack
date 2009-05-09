@@ -35,12 +35,11 @@ To start working with Jack, checkout the Jack and Narhwal repositories into the 
 
 Run one of the following examples:
 
-    jackup jack/example/hello.js
     jackup jack/example/example.js
+    jackup jack/example/comet.js
     
 Or if the current directory contains "jackconfig.js" you can just run "jackup"
 
-    cd jack/example
     jackup
 
 A Jackup configuration file is simply a normal module that exports a function called "app":
