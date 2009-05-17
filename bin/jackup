@@ -1,54 +1,56 @@
 #!/usr/bin/env narwhal
 
-var args = system.args;
-var print = system.print;
-
 function main() {
-    
     var File = require("file"),
         Dir = require("dir");
     
     var environment = "development",
         options = { port : 8080, host : "0.0.0.0" },
-        server = null,
         config = null,
+        appName = "app",
+        server = null,
+        reload = false,
         evalText = null;
 
-    while (args.length) {
-        var arg = args.shift();
+    while (system.args.length) {
+        var arg = system.args.shift();
         switch (arg) {
             case "-e" :
             case "--eval" :
-                evalText = args.shift();
+                evalText = system.args.shift();
                 break;
             case "-I" :
             case "--include" :
-                var newPaths = Array.prototype.unshift.apply(require.loader.getPaths(), args.shift().split(":"));
+                var newPaths = Array.prototype.unshift.apply(require.loader.getPaths(), system.args.shift().split(":"));
                 require.loader.setPaths(newPaths);
                 break;
             case "-d" :
             case "--debug" :
-                $DEBUG = true;
+                system.debug = true;
                 break;
-            case "-w" :
-            case "--warn" :
-                $WARN = true;
+            case "-a" :
+            case "--app" :
+                appName = system.args.shift();
                 break;
             case "-s" :
             case "--server" :
-                server = args.shift();
+                server = system.args.shift();
                 break;
             case "-o" :
             case "--host" :
-                options.host = args.shift();
+                options.host = system.args.shift();
                 break;
             case "-p" :
             case "--port" :
-                options.port = parseInt(args.shift());
+                options.port = parseInt(system.args.shift());
                 break;
             case "-E" :
             case "--env" :
-                environment = args.shift();
+                environment = system.args.shift();
+                break;
+            case "-r" :
+            case "--reload" :
+                reload = true;
                 break;
             case "-h" :
             case "--help" :
@@ -63,27 +65,31 @@ function main() {
         }
     }
 
+    var app, innerApp, configModule;
+    
     if (!evalText) {
-        config = config || "jackconfig.js"
+        
+        if (!config)
+            config = "jackconfig";
 
         if (config.charAt(0) !== "/")
             config = File.join(Dir.pwd(), config);
 
         print("Loading configuration module at " + config);
 
-        var configModule = require(config);
+        configModule = require(config);
         if (!configModule)
             throw new Error("configuration " + config + " not found");
+            
+        if (reload)    
+            innerApp = require("jack/reloader").Reloader(config, appName, require);
+        else
+            innerApp = configModule[appName];
     }
-
-    var innerApp, app;
-
-    if (evalText)
-        innerApp = evalGlobal(evalText);
     else
-        innerApp = configModule["app"];
-
-    if (typeof configModule[environment] === "function")
+        innerApp = system.evalGlobal(evalText);
+    
+    if (configModule && typeof configModule[environment] === "function")
     {
         app = configModule[environment](innerApp);
     }
@@ -108,12 +114,20 @@ function main() {
     
     if (!server)
     {
-        //if (system.platform === "rhino")
+        if (system.env['PHP_FCGI_CHILDREN'] !== undefined)
+            server = "fastcgi";
+        else if (system.platform === "rhino")
             server = "simple";
+        else if (system.platform === "k7")
+            server = "shttpd";
+        else if (system.platform === "v8cgi")
+            server = "v8cgi";
+        else
+            throw new Error("Unknown platform " + system.platform + ". Specify a server with the \"-s\" option.");
     }
 
     // Load the required handler.
-    handler = require("jack/handler/" + server).Handler;
+    var handler = require("jack/handler/" + server);
     
     handler.run(app, options);
 }
@@ -128,19 +142,10 @@ function printUsage() {
       -p, --port PORT          use PORT (default: 8080)\n\
       -E, --env ENVIRONMENT    use ENVIRONMENT: deployment, development (default), none\n\
       -e, --eval LINE          evaluate a LINE of code to be used as the app (overrides module)\n\
-\n\
-      -d, --debug              set debugging flags (set $DEBUG to true)\n\
-      -w, --warn               turn warnings on for your script\n\
-      -I, --include PATH       specify $LOAD_PATH (may be used more than once)\n\
-\n\
-    Common options:\n\
-      -h, --help               Show this message\n\
-          --version            Show version");
+      -r, --reload             reload application on each request\n\
+      -d, --debug              sets system.debug to true\n\
+      -h, --help               Show this message");
 }
 
-try {
-    main();
-} catch (e) {
-    print(e.message);
-}
+main();
 

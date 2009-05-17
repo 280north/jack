@@ -83,8 +83,34 @@ map["/cookie"] = function(env) {
     if (cookies["name"])
         response.write("previously saved name: " + cookies["name"] +"<br />")
         
-    response.write('<form action="cookie" method="post" enctype="multipart/form-data"><input type="text" name="name" value="" id="some_name"><input type="submit" value="go"></p></form>')
+    response.write('<form action="cookie" method="post" enctype="multipart/form-data">');
+    response.write('<input type="text" name="name" value="" id="some_name">');
+    response.write('<input type="submit" value="go"></form>');
     
+    return response.finish();
+}
+
+map["/info"] = function(env) {
+    var request = new Jack.Request(env),
+        response = new Jack.Response(200, { "Content-Type" : "text/plain" });
+    
+    var params = request.params();
+    
+    response.write("========================= params =========================\n");
+    
+    for (var i in params)
+        response.write(i + "=>" + params[i] + "\n")
+    
+    response.write("========================= env =========================\n");
+    
+    for (var i in env)
+        response.write(i + "=>" + env[i] + "\n")
+    
+    response.write("========================= system.env =========================\n");
+    
+    for (var i in system.env)
+        response.write(i + "=>" + system.env[i] + "\n")
+
     return response.finish();
 }
 
