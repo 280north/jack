@@ -1,8 +1,7 @@
 #!/usr/bin/env narwhal
 
 function main() {
-    var File = require("file"),
-        Dir = require("dir");
+    var File = require("file");
     
     var environment = "development",
         options = { port : 8080, host : "0.0.0.0" },
@@ -73,7 +72,7 @@ function main() {
             config = "jackconfig";
 
         if (config.charAt(0) !== "/")
-            config = File.join(Dir.pwd(), config);
+            config = File.join(File.cwd(), config);
 
         print("Loading configuration module at " + config);
 
