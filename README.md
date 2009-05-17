@@ -45,7 +45,7 @@ Or if the current directory contains "jackconfig.js" you can just run "jackup"
 A Jackup configuration file is simply a normal module that exports a function called "app":
 
     exports.app = function(env) {
-        return [200, {"Content-Type":"text/plain"}, "Hello world!"];
+        return [200, {"Content-Type":"text/plain"}, ["Hello world!"]];
     }
     
 If the module also exports a function with the same name as the chosen environment (using the "-E" command line option, "development" by default) that function will be used to add middleware to your application. This allows you to define custom sets of middleware for different environments. For example:
@@ -64,17 +64,17 @@ Writing Jack Applications
 
 A Jack application is simply a JavaScript function. It takes an environment argument, and it should return an array containing three elements: the status code (an integer), the headers values (a hash), and a body object (anything that responds to the "forEach" method which yields objects that have a "toBinary()" method).
 
-We have extended JavaScript Array, String, Binary objects to respond to "forEach", and String and Binary respond to "toBinary" (so they are valid "body" responses), thus the following is a valid Jack application:
+We have extended JavaScript String, and Binary respond to "toBinary" (so they are valid "body" responses), thus the following is a valid Jack application:
 
     function(env) {
-        return [200, {"Content-Type":"text/plain"}, "Hello world!"];
+        return [200, {"Content-Type":"text/plain"}, ["Hello world!"]];
     }
 
 If you need something more complex with extra state, you can provide a "constructor" in the form of a function
 
     MyApp = function(something) {
         return function(env) {
-            return [200, {"Content-Type":"text/plain"}, "Hello " + this.something + "!"];
+            return [200, {"Content-Type":"text/plain"}, ["Hello " + this.something + "!"]];
         }
     }
 

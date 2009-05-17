@@ -4,7 +4,7 @@ var map = {};
 
 // an extremely simple Jack application
 map["/hello"] = function(env) {
-    return [200, {"Content-Type":"text/plain"}, "Hello from " + env["SCRIPT_NAME"]];
+    return [200, {"Content-Type":"text/plain"}, ["Hello from " + env["SCRIPT_NAME"]]];
 }
 
 // 1/6th the time this app will throw an exception
@@ -14,7 +14,7 @@ map["/httproulette"] = function(env) {
     if (Math.random() > 5/6)
         throw new Error("bam!");
     
-    return [200, {"Content-Type":"text/html"}, 'whew!<br /><a href="httproulette">try again</a>'];
+    return [200, {"Content-Type":"text/html"}, ['whew!<br /><a href="httproulette">try again</a>']];
 }
 
 var form = '<form action="" method="get"><input type="text" name="name" value="" id="some_name"><input type="submit" value="go"></p></form>';
@@ -40,7 +40,7 @@ map["/narwhal"] = Jack.Narwhal;
 
 // use the JSONP middleware on this one
 map["/jsontest"] = Jack.JSONP(function(env) {
-    return [200, { "Content-Type" : "application/json" }, "{ hello : 'world' }"];
+    return [200, { "Content-Type" : "application/json" }, ["{ hello : 'world' }"]];
 });
 
 map["/files"] = Jack.File(".");
