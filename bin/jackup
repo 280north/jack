@@ -1,2 +1,2 @@
 #!/usr/bin/env narwhal
-require('jackup').main();
+require('jackup').main(system.args);
