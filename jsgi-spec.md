@@ -9,7 +9,7 @@ JSGI Specification
 Applications
 ------------
 
-A JSGI application is an JavaScript function. It takes exactly one argument, the **environment**, and returns an array of exactly three values: the **status**, the **headers**, and the **body**.
+A JSGI application is a JavaScript function. It takes exactly one argument, the **environment**, and returns an array of exactly three values: the **status**, the **headers**, and the **body**.
 
 Middleware
 ----------
@@ -19,14 +19,14 @@ JSGI middleware is typically a function that takes at least one other JSGI appli
 The Environment
 ---------------
 
-The environment must be an JavaScript Object instance that includes CGI-like headers. The application is free to modify the environment. The environment is required to include these variables (adopted from PEP333 and Rack), except when they‘d be empty, but see below.
+The environment must be a JavaScript Object instance that includes CGI-like headers. The application is free to modify the environment. The environment is required to include these variables (adopted from PEP333 and Rack), except when they'd be empty, but see below.
 
 * `REQUEST_METHOD`: The HTTP request method, such as "GET" or "POST". This cannot ever be an empty string, and so is always required.
 * `SCRIPT_NAME`: The initial portion of the request URL‘s "path" that corresponds to the application object, so that the application knows its virtual "location". This may be an empty string, if the application corresponds to the "root" of the server.
 * `PATH_INFO`: The remainder of the request URL‘s "path", designating the virtual "location" of the request‘s target within the application. This may be an empty string, if the request URL targets the application root and does not have a trailing slash. This value may be percent-encoded when I originating from a URL.
 * `QUERY_STRING`: The portion of the request URL that follows the ?, if any. May be empty, but is always required!
 * `SERVER_NAME`, `SERVER_PORT`: When combined with `SCRIPT_NAME` and `PATH_INFO`, these variables can be used to complete the URL. Note, however, that `HTTP_HOST`, if present, should be used in preference to `SERVER_NAME` for reconstructing the request URL. `SERVER_NAME` and `SERVER_PORT` can never be empty strings, and so are always required.
-* HTTP_ Variables: Variables corresponding to the client-supplied HTTP request headers (i.e., variables whose names begin with HTTP_). The presence or absence of these variables should correspond with the presence or absence of the appropriate HTTP header in the request.
+* HTTP_ Variables: Variables corresponding to the client-supplied HTTP request headers (i.e., variables whose names begin with HTTP\_). The presence or absence of these variables should correspond with the presence or absence of the appropriate HTTP header in the request.
 
 In addition to this, the JSGI environment must include these JSGI-specific variables:
 
@@ -68,7 +68,7 @@ The status, if parsed as integer, must be greater than or equal to 100.
 
 ### The Headers
 
-The header must be a JavaScript object containing key/value pairs of Strings. The header must not contain a Status key, contain keys with : or newlines in their name, contain keys names that end in - or _, but only contain keys that consist of letters, digits, _ or - and start with a letter. The values of the header must be Strings, consisting of lines (for multiple header values) separated by "\n". The lines must not contain characters below 037.
+The header must be a JavaScript object containing key/value pairs of Strings. The header must not contain a Status key, contain keys with : or newlines in their name, contain keys names that end in - or \_, but only contain keys that consist of letters, digits, \_ or - and start with a letter. The values of the header must be Strings, consisting of lines (for multiple header values) separated by "\n". The lines must not contain characters below 037.
 
 ### The Content-Type
 
