@@ -6,9 +6,9 @@ title: getting started with jack
 Getting Started With Jack
 =========================
 
-Jack currently supports the Jetty (and other servlet containers) and Simple webservers using Rhino, and it should be easy to integrate with other JavaScript interpreters and web servers. It also has preliminary support for v8cgi.
+Jack currently supports the [Jetty](http://www.mortbay.org/jetty/) (and other servlet containers) and [Simple](http://www.simpleframework.org/) webservers using [Rhino](http://www.mozilla.org/rhino/), and it should be easy to integrate with other JavaScript interpreters and web servers. It also has preliminary support for v8cgi.
 
-The current Jack implementation uses Narwhal for support. Narwhal is a JavaScript standard library (based on the ServerJS standard: https://wiki.mozilla.org/ServerJS) and is located at [http://github.com/tlrobinson/narwhal/](http://github.com/tlrobinson/narwhal/)
+The current Jack implementation uses Narwhal for support. Narwhal is a JavaScript standard library (based on the ServerJS standard: [https://wiki.mozilla.org/ServerJS](https://wiki.mozilla.org/ServerJS)) and is located at [http://github.com/tlrobinson/narwhal/](http://github.com/tlrobinson/narwhal/)
 
 To start working with Jack, checkout the Jack and Narhwal repositories into the same directory (they currently use relative path symlinks to integrate) and add narwhal/bin to your PATH environment variable (e.x. "export PATH=$PATH:narwhal/bin").
 
