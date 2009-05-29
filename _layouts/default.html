@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ page.title }}</title>
+<link rel="stylesheet" type="text/css" media="all"  href="/css/libraries.css" />
+<link rel="stylesheet" type="text/css" media="all"  href="/css/template.css" />
+<!--<link rel="stylesheet" type="text/css" media="all"  href="css/template_debug.css" />-->
+<link rel="stylesheet" type="text/css" media="all" href="/css/grids.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/content.css" />
+</head>
+<body>
+<!--<h1>{{ page.title }}</h1>-->
+<div class="page">
+    <!--<div class="head">
+        <h2>Head</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>-->
+    <div class="body">
+        <!--<div class="leftCol">
+            <h2>Left Column</h2>
+            <p>Left column is 250px by default. It can be extended by several classes to allow for additional layouts.</p>
+            <ul>
+                <li>.gMail = 160px</li>
+                <li>.gCal = 180px</li>
+                <li>.yahoo = 240px</li>
+                <li>.myYahoo = 300px</li>
+            </ul>
+        </div>-->
+        <div class="rightCol">
+            <h1>Articles</h1>
+            <ul>
+                <li><a href="/">introduction</a></li>
+                <li><a href="/jsgi-spec.html">jsgi specification</a></li>
+            {% for post in site.posts %}
+                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="main">
+{{ content }}
+        </div>
+    </div>
+    <!--<div class="foot">
+        <h2>Foot</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>        
+    </div>-->
+</div>
+</body>
+</html>
