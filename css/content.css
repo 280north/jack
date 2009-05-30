@@ -1,5 +1,9 @@
 /* @override http://localhost:4000/css/content.css */
 
+html {
+	background-color: #000;
+}
+
 body {
 	font-family: "Myriad Pro","Segoe UI",Helvetica, Arial, sans-serif;
 	color: #989898;
@@ -51,6 +55,10 @@ hr {
 
 code {
 	color: #AEEE00;
+	/*
+	display: block;
+	overflow: auto;
+	*/
 }
 
 /* ====== Headings ====== */
@@ -285,3 +293,10 @@ cite {
 1. find a way to capture the width of the caption in the width of the image or flash
 2. Set some default widths, mby use flickr widths?
 */
+
+
+div.main ul li {
+	list-style-type: disc;
+	list-style-position: outside;
+	margin-left: 20px;
+}

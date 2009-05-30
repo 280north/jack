@@ -21,4 +21,6 @@ For example, the "Head" middleware calls the original "app", then checks to see 
 
 This style of middleware makes use of a closure to "remember" the original app.
 
-A more complicated middleware might need to perform post-processing on the body contents. A common pattern is to call the app, then store the body as a property of a "context" and return the context itself in place of the body. It defines a "forEach" method on the context, which proxies to the stored body property. It is important to proxy the response body rather than buffer the entire response when dealing with streaming applications, otherwise the middleware will prevent the app from streaming. A good example of this pattern is the CommonLogger middleware, which does this in order to calculate the body length for logging.
+A more complicated middleware might need to perform post-processing on the body contents. A common pattern is to call the app, then store the body as a property of a "context" and return the context itself in place of the body. It defines a "forEach" method on the context, which proxies to the stored body property.
+
+It is important to proxy the response body rather than buffer the entire response when dealing with streaming applications, otherwise the middleware will prevent the app from streaming. A good example of this pattern is the CommonLogger middleware, which does this in order to calculate the body length for logging.
