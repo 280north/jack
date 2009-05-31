@@ -38,7 +38,9 @@ View the [JSGI specification](http://jackjs.org/jsgi-spec.html).
 Example JSGI Application
 ------------------------
 
-    function(env) { return [200, {"Content-Type":"text/html"}, ["Hello world"]]; }
+    function(env) {
+        return [200,{"Content-Type":"text/plain"},["Hello world!"]];
+    }
 
 
 JSGI vs. Rack
