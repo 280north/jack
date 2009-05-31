@@ -58,8 +58,8 @@ WSGI uses a `start_response` function to set the HTTP status code and headers, r
 Contributors
 ------------
 
-* Tom Robinson
-* Kris Kowal
+* [Tom Robinson](http://tlrobinson.net/)
+* [Kris Kowal](http://askawizard.blogspot.com/)
 * George Moschovitis
 
 
