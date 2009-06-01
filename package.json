@@ -1,6 +1,6 @@
 {
+    "name": "jack",
     "author": "Tom Robinson",
     "dependencies": ["narwhal"],
-    "js": "lib",
     "jars": ["jars/simple.jar"]
 }
