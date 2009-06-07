@@ -2,5 +2,5 @@
     "name": "jack",
     "author": "Tom Robinson",
     "dependencies": ["narwhal"],
-    "jars": ["jars/simple.jar"]
+    "jars": ["jars/simple-4.1.10.jar"]
 }
