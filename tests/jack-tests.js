@@ -1,3 +1,4 @@
-exports.testJackUtils = require("./jack/utils-tests");
+exports.testJack = require("./jack/all-tests");
 
-require("test/runner").run(exports);
+if (require.main === require.id)
+    require("test/runner").run(exports);
