@@ -21,11 +21,11 @@ Jack is an implementation of JSGI compatible handlers (to connect to web servers
 
 ### Mailing list
 
-* [http://groups.google.com/group/jack-js](http://groups.google.com/group/jack-js)
+* [http://groups.google.com/group/narwhaljs](http://groups.google.com/group/narwhaljs)
 
 ### IRC
 
-* \#jack-js on irc.freenode.net
+* \#narwhal on irc.freenode.net
 * \#serverjs on irc.freenode.net (unofficial)
 
 
