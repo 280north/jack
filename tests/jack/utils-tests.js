@@ -33,16 +33,30 @@ var qsTestCases = [
     }],
     ["foo[bar][bla]=baz&foo[bar][bla]=blo", "foo%5Bbar%5D%5Bbla%5D%5B%5D=baz&foo%5Bbar%5D%5Bbla%5D%5B%5D=blo", {"foo":{"bar":{"bla":["baz","blo"]}}}],
     ["foo[bar][][bla]=baz&foo[bar][][bla]=blo", "foo%5Bbar%5D%5B%5D%5Bbla%5D=baz&foo%5Bbar%5D%5B%5D%5Bbla%5D=blo", {"foo":{"bar":[{"bla":"baz"},{"bla":"blo"}]}}],
-    ["foo[bar][bla][]=baz&foo[bar][bla][]=blo", "foo%5Bbar%5D%5Bbla%5D%5B%5D=baz&foo%5Bbar%5D%5Bbla%5D%5B%5D=blo", {"foo":{"bar":{"bla":["baz","blo"]}}}]
+    ["foo[bar][bla][]=baz&foo[bar][bla][]=blo", "foo%5Bbar%5D%5Bbla%5D%5B%5D=baz&foo%5Bbar%5D%5Bbla%5D%5B%5D=blo", {"foo":{"bar":{"bla":["baz","blo"]}}}],
+    [" foo = bar ", "foo=bar", {"foo":"bar"}]
+];
+var qsColonTestCases = [
+    ["foo:bar", "foo:bar", {"foo":"bar"}],
+    ["foo:bar;foo:quux", "foo%5B%5D:bar;foo%5B%5D:quux", {"foo" : ["bar", "quux"]}],
+    ["foo:1&bar:2;baz:quux", "foo:1%26bar%3A2;baz:quux", {"foo":"1&bar:2", "baz":"quux"}],
+    ["foo%3Abaz:bar", "foo%3Abaz:bar", {"foo:baz":"bar"}],
+    ["foo:baz:bar", "foo:baz%3Abar", {"foo":"baz:bar"}]
 ];
 exports.testParseQuery = function() {
     qsTestCases.forEach(function (testCase) {
         assert.isSame(testCase[2], Utils.parseQuery(testCase[0]));
     });
+    qsColonTestCases.forEach(function (testCase) {
+        assert.isSame(testCase[2], Utils.parseQuery(testCase[0], ";", ":"))
+    });
 }
 exports.testToQueryString = function () {
     qsTestCases.forEach(function (testCase) {
         assert.isSame(testCase[1], Utils.toQueryString(testCase[2]));
+    });
+    qsColonTestCases.forEach(function (testCase) {
+        assert.isSame(testCase[1], Utils.toQueryString(testCase[2], ";", ":"));
     });
 };
 
