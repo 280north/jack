@@ -6,8 +6,10 @@ var assert = require("test/assert"),
 
 exports.testUnescape = function() {
     assert.isEqual("fo<o>bar", Utils.unescape("fo%3Co%3Ebar"));
-    assert.isEqual("a space", Utils.unescape("a+space"));
     assert.isEqual("a space", Utils.unescape("a%20space"));
+    assert.isEqual("a+space", Utils.unescape("a+space"));
+    assert.isEqual("a+space", Utils.unescape("a+space", false));
+    assert.isEqual("a space", Utils.unescape("a+space", true));
     assert.isEqual("q1!2\"'w$5&7/z8)?\\", Utils.unescape("q1%212%22%27w%245%267%2Fz8%29%3F%5C"));
 }
 
