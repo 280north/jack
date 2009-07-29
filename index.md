@@ -6,9 +6,9 @@ title: jack - introduction
 JSGI & Jack
 ===========
 
-JSGI is a webserver interface for JavaScript inspired by Ruby's Rack ([http://rack.rubyforge.org/](http://rack.rubyforge.org/)) and Python's WSGI ([http://www.wsgi.org/](http://www.wsgi.org/)).
+JSGI is a web server interface specification for JavaScript, inspired by Ruby's Rack ([http://rack.rubyforge.org/](http://rack.rubyforge.org/)) and Python's WSGI ([http://www.wsgi.org/](http://www.wsgi.org/)). It provides a common API for connecting JavaScript frameworks and applications to webservers.
 
-Jack is an implementation of JSGI compatible handlers (to connect to web servers), middleware (to intercept and manipulate requests to add functionality), and utilities (to make using JSGI easier).
+Jack is a collection of JSGI compatible handlers (connect web servers to JavaScript web application/frameworks), middleware (intercept and manipulate requests to add functionality), and other utilities (to help build middleware, frameworks, and applications).
 
 
 ### Homepage:
@@ -27,8 +27,7 @@ Jack is an implementation of JSGI compatible handlers (to connect to web servers
 
 ### IRC:
 
-* \#narwhal on irc.freenode.net
-* \#serverjs on irc.freenode.net (unofficial)
+* [\#narwhal on irc.freenode.net](http://webchat.freenode.net/?channels=narwhal)
 
 
 JSGI Specification

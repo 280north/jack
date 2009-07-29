@@ -6,9 +6,9 @@ title: jack - writing jsgi applications
 Writing JSGI Applications
 =========================
 
-A JSGI application is simply a JavaScript function. It takes an environment argument, and it should return an array containing three elements: the status code (an integer), the headers values (a hash), and a body object (anything that responds to the "forEach" method which yields objects that have a "toByteString()" method).
+A JSGI application is simply a JavaScript function. It takes a single environment argument, and it should return an array containing three elements: the status code (an integer), the headers values (a hash), and a body object (anything that responds to the "forEach" method which yields objects that have a "toByteString()" method).
 
-We have extended JavaScript String, ByteArray, and ByteString respond to "toByteString" (so they are valid "body" responses), thus the following is a valid JSGI application:
+Narwhal has extended JavaScript String, ByteArray, and ByteString respond to "toByteString" (so they are valid "body" responses), thus the following is a valid JSGI application:
 
     function(env) {
         return [200,{"Content-Type":"text/plain"},["Hello world!"]];

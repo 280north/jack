@@ -6,16 +6,16 @@ title: jack - getting started with jack
 Getting Started With Jack
 =========================
 
-Jack currently supports the [Jetty](http://www.mortbay.org/jetty/) (and other servlet containers) and [Simple](http://www.simpleframework.org/) webservers using [Rhino](http://www.mozilla.org/rhino/), and it should be easy to integrate with other JavaScript interpreters and web servers. It also has preliminary support for v8cgi.
+Jack currently supports the [Jetty](http://www.mortbay.org/jetty/) (and other servlet containers) and [Simple](http://www.simpleframework.org/) webservers using [Rhino](http://www.mozilla.org/rhino/). It's also easy to add support for other webservers.
 
-The current Jack implementation uses Narwhal for support. Narwhal is a JavaScript standard library (based on the ServerJS standard: [https://wiki.mozilla.org/ServerJS](https://wiki.mozilla.org/ServerJS)) and is located at [http://github.com/tlrobinson/narwhal/](http://github.com/tlrobinson/narwhal/)
+The current Jack implementation uses Narwhal for support. Narwhal is a JavaScript standard library (based on the ServerJS standard: [https://wiki.mozilla.org/ServerJS](https://wiki.mozilla.org/ServerJS)) and is located at [http://narwhaljs.org/](http://narwhaljs.org/)
 
-To start working with Jack, checkout the Jack and Narhwal repositories into the same directory (they currently use relative path symlinks to integrate) and add narwhal/bin to your PATH environment variable (e.x. "export PATH=$PATH:narwhal/bin").
+To start working with Jack, follow the [Narwhal Quick Start](http://narwhaljs.org/quick-start.html) guide, which includes installing Jack.
 
-Run one of the following examples:
+Then run one of the examples (paths relative to Narwhal installation):
 
-    jackup jack/example/example.js
-    jackup jack/example/comet.js
+    jackup packages/jack/example/example.js
+    jackup packages/jack/example/comet.js
     
 Or if the current directory contains "jackconfig.js" you can just run "jackup"
 
@@ -23,15 +23,15 @@ Or if the current directory contains "jackconfig.js" you can just run "jackup"
 
 This is equivalent to:
 
-    jackup ./jackconfig.js
+    jackup jackconfig.js
 
-A Jackup configuration file is simply a normal module that exports a function called "app":
+A Jackup configuration file is a normal Narwhal module that exports a function called "app":
 
     exports.app = function(env) {
         return [200,{"Content-Type":"text/plain"},["Hello world!"]];
     }
     
-If the module also exports a function with the same name as the chosen environment (using the "-E" command line option, "development" by default) that function will be used to add middleware to your application. This allows you to define custom sets of middleware for different environments. For example:
+If the module also exports a function with the same name as the chosen environment (using the "-E" command line option, "development" by default) that function will be used to apply middleware to your application. This allows you to define custom sets of middleware for different environments. For example:
 
     exports.development = function(app) {
         return Jack.CommonLogger(
