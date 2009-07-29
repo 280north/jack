@@ -81,8 +81,8 @@ github_url: "http://github.com/tlrobinson/jack"
 articles:
 #{articles}
 links:
-- name: jack & jsgi
-  link: "http://jackjs.org/"
+- name: narwhal
+  link: "http://narwhaljs.org/"
 ---
 EOS
 
