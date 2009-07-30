@@ -78,7 +78,7 @@ This software was influenced by Rack, written by Christian Neukirchen.
 License
 -------
 
-Copyright (c) 2009 Thomas Robinson <[tlrobinson.net](http://tlrobinson.net/)\>
+Copyright (c) 2009 Thomas Robinson <[280north.com](http://280north.com/)\>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to
