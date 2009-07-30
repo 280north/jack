@@ -81,6 +81,10 @@ github_url: "http://github.com/tlrobinson/jack"
 articles:
 #{articles}
 links:
+- name: source
+  link: "http://github.com/tlrobinson/jack"
+- name: mailing list
+  link: "http://groups.google.com/group/narwhaljs"
 - name: narwhal
   link: "http://narwhaljs.org/"
 ---
