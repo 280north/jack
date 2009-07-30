@@ -64,7 +64,7 @@ Contributors
 * [Kris Kowal](http://askawizard.blogspot.com/)
 * Irakli Gozalishvili
 * Jan Varwig
-* Isaac Z. Schlueter
+* [Isaac Z. Schlueter](http://foohack.com/)
 
 
 Acknowledgments
