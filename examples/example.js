@@ -40,7 +40,7 @@ map["/narwhal"] = Jack.Narwhal;
 
 // use the JSONP middleware on this one
 map["/jsontest"] = Jack.JSONP(function(env) {
-    return [200, { "Content-Type" : "application/json" }, ["{ hello : 'world' }"]];
+    return [200, { "Content-Type" : "application/json" }, ["{ \"hello\" : \"world\" }"]];
 });
 
 map["/files"] = Jack.File(".");
