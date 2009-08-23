@@ -1,6 +1,8 @@
 {
     "name": "jack",
-    "author": "Tom Robinson",
     "dependencies": ["narwhal"],
-    "jars": ["jars/simple-4.1.10.jar"]
+    "jars": ["jars/simple-4.1.10.jar"],
+    "author": "Tom Robinson (http://tlrobinson.net/)",
+    "description": "A library of JSGI middleware, handlers, and utilities, based on Rack",
+    "keywords": ["web server", "server", "jsgi", "rack", "wsgi"]
 }
