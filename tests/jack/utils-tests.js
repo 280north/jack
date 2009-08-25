@@ -180,5 +180,5 @@ function multipart_fixture(name) {
 }
 
 function multipart_file(name) {
-    return File.join(File.dirname(require.fileName), "multipart", name);
+    return File.join(File.dirname(module.path), "multipart", name);
 }
