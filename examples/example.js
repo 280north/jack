@@ -4,7 +4,11 @@ var map = {};
 
 // an extremely simple Jack application
 map["/hello"] = function(env) {
-    return [200, {"Content-Type":"text/plain"}, ["Hello from " + env["SCRIPT_NAME"]]];
+    return {
+        status : 200,
+        headers : {"Content-Type":"text/plain"},
+        body : ["Hello from " + env["SCRIPT_NAME"]]
+    };
 }
 
 // 1/6th the time this app will throw an exception
@@ -14,7 +18,11 @@ map["/httproulette"] = function(env) {
     if (Math.random() > 5/6)
         throw new Error("bam!");
     
-    return [200, {"Content-Type":"text/html"}, ['whew!<br /><a href="httproulette">try again</a>']];
+    return {
+        status : 200,
+        headers : {"Content-Type":"text/html"},
+        body : ['whew!<br /><a href="httproulette">try again</a>']
+    };
 }
 
 var form = '<form action="" method="get"><input type="text" name="name" value="" id="some_name"><input type="submit" value="go"></p></form>';
@@ -32,6 +40,8 @@ map["/"] = function(env) {
     response.write('<a href="stream">stream</a><br />');
     response.write('<a href="stream1">stream1</a><br />');
     response.write('<a href="cookie">cookie</a><br />');
+    response.write('<a href="examples">examples</a><br />');
+    response.write('<a href="info">info</a><br />');
 
     return response.finish();
 }
@@ -40,21 +50,26 @@ map["/narwhal"] = Jack.Narwhal;
 
 // use the JSONP middleware on this one
 map["/jsontest"] = Jack.JSONP(function(env) {
-    return [200, { "Content-Type" : "application/json" }, ["{ \"hello\" : \"world\" }"]];
+    return {
+        status : 200,
+        headers : { "Content-Type" : "application/json" },
+        body : ["{ \"hello\" : \"world\" }"]
+    };
 });
 
 map["/files"] = Jack.File(".");
 
 map["/stream"] = function(env) {
-    return [200,
-        {"Content-Type":"text/html", "Transfer-Encoding":"chunked"},
-        { forEach : function(write) {
+    return {
+        status : 200,
+        headers : {"Content-Type":"text/html", "Transfer-Encoding":"chunked"},
+        body : { forEach : function(write) {
             for (var i = 0; i < 50; i++) { 
                 java.lang.Thread.currentThread().sleep(100); 
                 write("hellohellohellohellohellohellohellohellohellohellohellohellohello<br />"); 
             }
-        }
-    }];
+        }}
+    };
 }
 
 
@@ -114,10 +129,9 @@ map["/info"] = function(env) {
     return response.finish();
 }
 
+map["/examples"] = Jack.Directory(".");
+
 // middleware:
 
 // apply the URLMap
-var app = Jack.ContentLength(Jack.URLMap(map));
-
-// serve the "/example" directory files
-exports.app = Jack.Static(app, { urls : ["/example"] });
+exports.app = Jack.ContentLength(Jack.URLMap(map));
