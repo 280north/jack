@@ -14,7 +14,7 @@ exclude = {
   "lib/os/popen" => true
 }
 
-CHECKOUT_BRANCH = 'master'
+CHECKOUT_BRANCH = 'jsgichange'
 
 DEFAULT_LAYOUT_TEMPLATE = '_layouts/default-template.html'
 DEFAULT_LAYOUT = '_layouts/default.html'

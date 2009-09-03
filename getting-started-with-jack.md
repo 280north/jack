@@ -28,7 +28,11 @@ This is equivalent to:
 A Jackup configuration file is a normal Narwhal module that exports a function called "app":
 
     exports.app = function(env) {
-        return [200,{"Content-Type":"text/plain"},["Hello world!"]];
+        return {
+            status : 200,
+            headers : {"Content-Type":"text/plain"},
+            body : ["Hello world!"]
+        };
     }
     
 If the module also exports a function with the same name as the chosen environment (using the "-E" command line option, "development" by default) that function will be used to apply middleware to your application. This allows you to define custom sets of middleware for different environments. For example:

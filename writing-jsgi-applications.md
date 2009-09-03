@@ -11,15 +11,22 @@ A JSGI application is simply a JavaScript function. It takes a single environmen
 Narwhal has extended JavaScript String, ByteArray, and ByteString respond to "toByteString" (so they are valid "body" responses), thus the following is a valid JSGI application:
 
     function(env) {
-        return [200,{"Content-Type":"text/plain"},["Hello world!"]];
+        return {
+            status : 200,
+            headers : {"Content-Type":"text/plain"},
+            body : ["Hello world!"]
+        };
     }
 
 If you need something more complex with extra state, you can provide a "constructor" in the form of a function:
 
     MyApp = function(something) {
         return function(env) {
-            return [200, {"Content-Type":"text/plain"},
-                ["Hello " + this.something + "!"]];
+            return {
+              status : 200,
+              headers : {"Content-Type":"text/plain"},
+              body : ["Hello " + this.something + "!"]
+            };
         }
     }
 
@@ -41,4 +48,4 @@ The Request and Response objects are part of Jack, not the JSGI specification, b
     resp.write("!");
     return resp.finish();
 
-This is roughly equivalent to returning `[200, {"Content-Type" : "text/plain"}, ["hello "+name+"!"]]`
+This is roughly equivalent to returning `{ status : 200, headers : {"Content-Type" : "text/plain"}, body : ["hello "+name+"!"] }`

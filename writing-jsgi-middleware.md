@@ -14,7 +14,7 @@ For example, the "Head" middleware calls the original "app", then checks to see 
         return function(env) {
             var result = app(env);
             if (env["REQUEST_METHOD"] === "HEAD")
-                result[2] = [];
+                result.body = [];
             return result;
         }
     }

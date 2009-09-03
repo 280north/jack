@@ -9,7 +9,7 @@ JSGI Specification
 Applications
 ------------
 
-A JSGI application is a JavaScript function. It takes exactly one argument, the **environment**, and returns an array of exactly three values: the **status**, the **headers**, and the **body**.
+A JSGI application is a JavaScript function. It takes exactly one argument, the **environment**, and returns a JavaScript Object containing three properties: the **status**, the **headers**, and the **body**.
 
 Middleware
 ----------

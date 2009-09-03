@@ -36,7 +36,11 @@ Example JSGI Application
 ------------------------
 
     function(env) {
-        return [200,{"Content-Type":"text/plain"},["Hello world!"]];
+        return {
+            status : 200,
+            headers : {"Content-Type":"text/plain"},
+            body : ["Hello world!"]
+        };
     }
 
 
