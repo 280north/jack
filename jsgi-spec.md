@@ -3,8 +3,8 @@ layout: default
 title: jack - jsgi spec
 ---
 
-JSGI Specification
-==================
+JSGI Specification, v0.2
+========================
 
 Applications
 ------------
@@ -30,7 +30,7 @@ The environment must be a JavaScript Object instance that includes CGI-like head
 
 In addition to this, the JSGI environment must include these JSGI-specific variables:
 
-* `jsgi.version`: The Array \[0,1\], representing this version of JSGI.
+* `jsgi.version`: The Array \[0,2\], representing this version of JSGI.
 * `jsgi.url_scheme`: http or https, depending on the request URL.
 * `jsgi.input`: See below, the input stream.
 * `jsgi.errors`: See below, the error stream.
