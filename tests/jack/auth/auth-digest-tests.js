@@ -12,7 +12,6 @@ var assert = require("test/assert"),
     HashP = require("hashp").HashP,
     Jack = require("jack"),
     MockRequest = require("jack/mock").MockRequest,
-    BasicHandler = require("jack/auth/basic/handler"),
     DigestNonce = require("jack/auth/digest/nonce"),
     DigestHandler = require("jack/auth/digest/handler"),
     DigestRequest = require("jack/auth/digest/request").DigestRequest,
@@ -38,11 +37,6 @@ var digestApp = DigestHandler.Middleware(openApp, {
     getPassword: function(username) {
         return {'Alice': 'correct-password'}[username];
     }
-});
-
-var basicApp = BasicHandler.Middleware(openApp, {
-    realm: myRealm,
-    isValid: function(request) { return false }
 });
 
 var partiallyProtectedApp = Jack.URLMap({
