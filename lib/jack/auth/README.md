@@ -1,5 +1,5 @@
-Jack-Auth
-==========
+Jack.Auth
+=========
 JSGI authorisation handlers for Jack and Narwhal
 
 Status
