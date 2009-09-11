@@ -242,18 +242,3 @@ exports.testChallengeIncorrectCredentialsForProtectedPath = function() {
 
     assertDigestAuthChallenge(response);
 };
-
-/*
-  def protected_app_with_method_override
-    Rack::MethodOverride.new(protected_app)
-  end
-
-  specify 'should return application output if correct credentials given (hashed passwords)' do
-    @request = Rack::MockRequest.new(protected_app_with_hashed_passwords)
-
-    request_with_digest_auth 'GET', '/', 'Alice', 'correct-password' do |response|
-      response.status.should.equal 200
-      response.body.to_s.should.equal 'Hi Alice'
-    end
-  end
-*/
