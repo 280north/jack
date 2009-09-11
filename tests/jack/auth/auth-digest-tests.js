@@ -40,15 +40,6 @@ var digestApp = DigestHandler.Middleware(openApp, {
     }
 });
 
-var digestAppWithHashedPasswords = DigestHandler.Middleware(openApp, {
-    realm: myRealm,
-    opaque: "this-should-be-secret",
-    passwordsHashed: true,
-    getPassword: function(username) {
-        return {'Alice': DigestHandler.base16md5(["Alice", myRealm, "correct-password"].join(":"))}[username];
-    }
-});
-
 var basicApp = BasicHandler.Middleware(openApp, {
     realm: myRealm,
     isValid: function(request) { return false }
