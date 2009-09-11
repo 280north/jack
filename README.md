@@ -65,6 +65,7 @@ Contributors
 * Irakli Gozalishvili
 * Jan Varwig
 * [Isaac Z. Schlueter](http://foohack.com/)
+* Neville Burnell
 
 
 Acknowledgments
