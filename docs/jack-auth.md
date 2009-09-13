@@ -1,24 +1,31 @@
 Jack.Auth
 =========
-JSGI authorisation handlers for Jack and Narwhal
+
+JSGI authorization handlers for Jack and Narwhal.
+
 
 Status
 ------
+
 * Basic: Completed
 * Digest: Completed. Tests outstanding.
 * OpenID: Outstanding
 
+
 History
 -------
+
 * 2009-09-10 V0.5 Merged with Jack. Tidy up names, params, exports. These changes will break existing code.
 * 2009-09-09 V0.4 Digest Authentication.
 * 2009-09-04 V0.3 Conform to Jack response specification change from array to object.  BasicMiddleware() API change.
 * 2009-08-26 V0.2 Changed authenticator() parameters.
 * 2009-08-20 V0.1 First Release. Basic Authentication. 
 
+
 Usage: Basic Authentication
 ---------------------------
-    var basicAuth = require("jack/auth/basic/handler").Middleware;
+
+    var BasicAuth = require("jack/auth/basic/handler").Middleware;
 
     var myApp = function(env) {
         return {
@@ -34,17 +41,20 @@ Usage: Basic Authentication
     //      isValid(request): a function which takes an object which exposes username and password and returns
     //      true or false if the pair is accepted or rejected
 
-    var myAppWithBasicAuth = basicAuth(myApp, {
+    exports.app = BasicAuth(myApp, {
         realm: "my realm",
         isValid: function(request) {
-            if (request.username == 'admin' && request.password == 'pass') return true; //allow
+            if (request.username == 'admin' && request.password == 'pass')
+                return true; //allow
             return false; //deny
-    }
+        }
     });
 
+
 Usage: Digest Authentication
----------------------------
-    digestAuth = require("jack/auth/digest/handler").Middleware;
+----------------------------
+
+    var DigestAuth = require("jack/auth/digest/handler").Middleware;
 
     var myApp = function(env) {
         return {
@@ -60,7 +70,7 @@ Usage: Digest Authentication
     //      opaque: a secret hashed and passed to the client
     //      getPassword(username): returns the password for a username
 
-    var myAppWithDigestAuth = digestAuth(myApp, {
+    exports.app = DigestAuth(myApp, {
         realm: "my realm",
         opaque: "this-is-a-secret",
         getPassword: function(username) {
@@ -68,19 +78,25 @@ Usage: Digest Authentication
         }
     });
 
+
 Contributors
 ------------
+
 * [Neville Burnell][2]
+
 
 Acknowledgments
 ---------------
+
 This software was inspired by [Rack::Auth][1]
 
 [1]:http://github.com/rack/rack
 [2]:http://github.com/nevilleburnell
 
+
 License
 -------
+
 Copyright (c) 2009 Neville Burnell
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
