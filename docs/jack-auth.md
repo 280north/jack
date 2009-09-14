@@ -8,7 +8,7 @@ Status
 ------
 
 * Basic: Completed
-* Digest: Completed. Tests outstanding.
+* Digest: Completed.
 * OpenID: Outstanding
 
 
