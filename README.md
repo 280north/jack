@@ -36,7 +36,11 @@ Example JSGI Application
 ------------------------
 
     function(env) {
-        return [200,{"Content-Type":"text/plain"},["Hello world!"]];
+        return {
+            status : 200,
+            headers : {"Content-Type":"text/plain"},
+            body : ["Hello world!"]
+        };
     }
 
 
@@ -61,6 +65,7 @@ Contributors
 * Irakli Gozalishvili
 * Jan Varwig
 * [Isaac Z. Schlueter](http://foohack.com/)
+* Neville Burnell
 
 
 Acknowledgments

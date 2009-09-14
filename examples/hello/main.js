@@ -2,7 +2,11 @@
 var ContentLength = require('jack/contentlength').ContentLength;
 
 exports.app = new ContentLength(function (env) {
-    return [200, {"content-type": "text/plain"}, ["Hello, World!"]];
+    return {
+        status : 200,
+        headers : {"content-type": "text/plain"},
+        body : ["Hello, World!"]
+    };
 });
 
 if (require.main == module.id)
