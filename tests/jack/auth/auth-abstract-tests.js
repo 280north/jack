@@ -17,16 +17,6 @@ var assert = require("test/assert"),
  * tests for AbstractHandler
  */
 
-exports.testBadRequest = function() {
-    var handler = new AbstractHandler();
-    var resp = handler.BadRequest();
-
-    assert.eq(400, resp.status);
-    assert.eq('text/plain', resp.headers['Content-Type']);
-    assert.eq('0', resp.headers['Content-Length']);
-    assert.eq(0, resp.body.length);
-}
-
 exports.testUnauthorizedDefaultChallenge = function() {
     var testRealm = "testRealm";
     var handler = new AbstractHandler({realm:testRealm});

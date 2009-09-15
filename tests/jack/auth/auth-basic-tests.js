@@ -132,6 +132,5 @@ exports.testBadRequestIfSchemeNotBasic = function() {
     var response = doRequestWithCustomAuth(request, 'Boss', 'password');
 
     assert.eq(400,       response.status);
-    assert.eq("",        response.body);
     assert.eq(undefined, response.headers['WWW-Authenticate']);
 }
