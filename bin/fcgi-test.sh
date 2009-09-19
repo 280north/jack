@@ -6,12 +6,20 @@ if [ ! "$NARWHAL_PLATFORM" ]; then
 	export NARWHAL_PLATFORM="k7"
 fi
 
-BIN=$(which $1)
+BIN=""
+case "$1" in
+	/*) # absolute path
+		BIN="$1"
+		;;
+	*)
+	    BIN=$(which $1)
+	    ;;
+esac
+
 if [ ! "$BIN" ]; then
-	BIN=$(which jackup)
-else	
-	shift
+    BIN="$PWD/$1"
 fi
+shift
 
 ARGS=""
 while [ $# -gt 0 ]
