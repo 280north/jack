@@ -97,10 +97,8 @@ var doRequestWithDigestAuth = function(request, method, path, username, password
 var assertDigestAuthChallenge = function(response){
     assert.eq(401,                  response.status);
     assert.eq('text/plain',         response.headers['Content-Type']);
-    assert.eq('0',                  response.headers['Content-Length']);
     assert.isFalse(response.headers['WWW-Authenticate'] === undefined);
     assert.isTrue(response.headers['WWW-Authenticate'].search(/^Digest/) != -1);
-    assert.eq(0,                    response.body.length);
 }
 
 var assertBadRequest = function(response) {

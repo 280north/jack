@@ -46,10 +46,8 @@ var doRequestWithCustomAuth = function(request, username, password) {
 function assertBasicAuthChallenge(response) {
     assert.eq(401,                  response.status);
     assert.eq('text/plain',         response.headers['Content-Type']);
-    assert.eq('0',                  response.headers['Content-Length']);
-    assert.isTrue(response.headers['WWW-Authenticate'].search(/^Basic/) != -1);    
+    assert.isTrue(response.headers['WWW-Authenticate'].search(/^Basic/) != -1);
     assert.eq('Basic realm='+myRealm, response.headers['WWW-Authenticate']);
-    assert.eq(0,                    response.body.length);
 }
 
 /********************************************************
@@ -132,6 +130,5 @@ exports.testBadRequestIfSchemeNotBasic = function() {
     var response = doRequestWithCustomAuth(request, 'Boss', 'password');
 
     assert.eq(400,       response.status);
-    assert.eq("",        response.body);
     assert.eq(undefined, response.headers['WWW-Authenticate']);
 }
