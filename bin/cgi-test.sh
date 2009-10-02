@@ -9,7 +9,7 @@ export REQUEST_METHOD="GET"
 export SERVER_NAME="localhost"
 export SERVER_PORT="80"
 export QUERY_STRING=""
-export HTTP_VERSION="HTTP/1.1"
+export SERVER_PROTOCOL="HTTP/1.1"
 
 export REMOTE_HOST="127.0.0.1"
 
