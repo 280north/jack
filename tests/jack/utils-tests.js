@@ -1,6 +1,7 @@
 var assert = require("test/assert"),
     Utils = require("jack/utils"),
     MockRequest = require("jack/mock").MockRequest,
+    Request = require("jack").Request,
     File = require("file"),
     ByteIO = require("io").ByteIO;
 
@@ -165,22 +166,37 @@ exports.testMultipartIEFile = function() {
     assert.isEqual("contents", File.read(params["files"]["tempfile"], "b").decodeToString());
 }
 
-function multipartFixture(name) {
-    var file = multipartFile(name);
+exports.testBinaryNonMultipart = function() {
+    var env = MockRequest.envFor("post", "/upload", fixture(fixtureFile("rack-logo.jpg"), "text/html"));
+    var request = new Request(env);
+    request.params(); // force evaluation of the body of the request
+    var input;
+
+    input = request.env["jsgi.input"];
+    assert.isEqual(15124, input.read().length);
+};
+
+function fixture(file, contentType) {
     var data = File.read(file, 'rb');
-    
-    var type = "multipart/form-data; boundary=AaB03x";
     var length = data.length;
 
     return {
-        "CONTENT_TYPE" : type,
-        "CONTENT_LENGTH" : length.toString(10),
-        "jsgi.input" : new ByteIO(data)
-    }
+        "CONTENT_TYPE": contentType,
+        "CONTENT_LENGTH": length.toString(10),
+        "jsgi.input": new ByteIO(data)
+    };
+}
+
+function multipartFixture(name) {
+    return fixture(multipartFile(name), "multipart/form-data; boundary=AaB03x");
 }
 
 function multipartFile(name) {
     return File.join(File.dirname(module.path), "multipart", name);
+}
+
+function fixtureFile(name) {
+    return File.join(File.dirname(module.path), "fixtures", name);
 }
 
 if (require.main === module.id)
