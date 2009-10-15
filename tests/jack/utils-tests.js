@@ -1,6 +1,7 @@
 var assert = require("test/assert"),
     Utils = require("jack/utils"),
     MockRequest = require("jack/mock").MockRequest,
+    Request = require("jack").Request,
     File = require("file"),
     ByteIO = require("io").ByteIO;
 
@@ -70,7 +71,7 @@ exports.testNotMultipart = function() {
 
 // specify "should parse multipart upload with text file" do
 exports.testMultipart = function() {
-    var env = MockRequest.envFor(null, "/", multipart_fixture("text"));
+    var env = MockRequest.envFor(null, "/", multipartFixture("text"));
     var params = Utils.parseMultipart(env);
     
     assert.isEqual("Larry", params["submit-name"]);
@@ -88,7 +89,7 @@ exports.testMultipart = function() {
 //specify "should parse multipart upload with nested parameters" do
 /*
 exports.testMultipartNested = function() {
-    var env = MockRequest.envFor(null, "/", multipart_fixture("nested"))
+    var env = MockRequest.envFor(null, "/", multipartFixture("nested"))
     var params = Utils.parseMultipart(env);
     
     assert.isEqual("Larry", params["foo"]["submit-name"]);
@@ -106,7 +107,7 @@ exports.testMultipartNested = function() {
 
 // specify "should parse multipart upload with binary file" do
 exports.testMultipartBinaryFile = function() {
-    var env = MockRequest.envFor(null, "/", multipart_fixture("binary"));
+    var env = MockRequest.envFor(null, "/", multipartFixture("binary"));
     var params = Utils.parseMultipart(env);
     
     assert.isEqual("Larry", params["submit-name"]);
@@ -123,7 +124,7 @@ exports.testMultipartBinaryFile = function() {
 
 // specify "should parse multipart upload with empty file" do
 exports.testMultipartEmptyFile = function() {
-    var env = MockRequest.envFor(null, "/", multipart_fixture("empty"));
+    var env = MockRequest.envFor(null, "/", multipartFixture("empty"));
     var params = Utils.parseMultipart(env);
     
     assert.isEqual("Larry", params["submit-name"]);
@@ -140,7 +141,7 @@ exports.testMultipartEmptyFile = function() {
 
 // specify "should not include file params if no file was selected" do
 exports.testMultipartNoFile = function() {
-    var env = MockRequest.envFor(null, "/", multipart_fixture("none"));
+    var env = MockRequest.envFor(null, "/", multipartFixture("none"));
     var params = Utils.parseMultipart(env);
     
     assert.isEqual("Larry", params["submit-name"]);
@@ -150,7 +151,7 @@ exports.testMultipartNoFile = function() {
 
 // specify "should parse IE multipart upload and clean up filename" do
 exports.testMultipartIEFile = function() {
-    var env = MockRequest.envFor(null, "/", multipart_fixture("ie"));
+    var env = MockRequest.envFor(null, "/", multipartFixture("ie"));
     var params = Utils.parseMultipart(env);
     
     assert.isEqual("text/plain", params["files"]["type"]);
@@ -165,20 +166,38 @@ exports.testMultipartIEFile = function() {
     assert.isEqual("contents", File.read(params["files"]["tempfile"], "b").decodeToString());
 }
 
-function multipart_fixture(name) {
-    var file = multipart_file(name);
-    var data = File.read(file, 'rb');
+exports.testBinaryNonMultipart = function() {
+    var env = MockRequest.envFor("post", "/upload", fixture(fixtureFile("rack-logo.jpg"), "text/html"));
+    var request = new Request(env);
+    request.params(); // force evaluation of the body of the request
     
-    var type = "multipart/form-data; boundary=AaB03x";
+    // test it twice to ensure it's cached (or rewound?)
+    assert.isEqual(15124, request.body().length);
+    assert.isEqual(15124, request.body().length);
+};
+
+function fixture(file, contentType) {
+    var data = File.read(file, 'rb');
     var length = data.length;
 
     return {
-        "CONTENT_TYPE" : type,
-        "CONTENT_LENGTH" : length.toString(10),
-        "jsgi.input" : new ByteIO(data)
-    }
+        "CONTENT_TYPE": contentType,
+        "CONTENT_LENGTH": length.toString(10),
+        "jsgi.input": new ByteIO(data)
+    };
 }
 
-function multipart_file(name) {
+function multipartFixture(name) {
+    return fixture(multipartFile(name), "multipart/form-data; boundary=AaB03x");
+}
+
+function multipartFile(name) {
     return File.join(File.dirname(module.path), "multipart", name);
 }
+
+function fixtureFile(name) {
+    return File.join(File.dirname(module.path), "fixtures", name);
+}
+
+if (require.main === module.id)
+    require("test/runner").run(exports);
