@@ -170,10 +170,10 @@ exports.testBinaryNonMultipart = function() {
     var env = MockRequest.envFor("post", "/upload", fixture(fixtureFile("rack-logo.jpg"), "text/html"));
     var request = new Request(env);
     request.params(); // force evaluation of the body of the request
-    var input;
-
-    input = request.env["jsgi.input"];
-    assert.isEqual(15124, input.read().length);
+    
+    // test it twice to ensure it's cached (or rewound?)
+    assert.isEqual(15124, request.body().length);
+    assert.isEqual(15124, request.body().length);
 };
 
 function fixture(file, contentType) {
@@ -201,3 +201,4 @@ function fixtureFile(name) {
 
 if (require.main === module.id)
     require("test/runner").run(exports);
+
