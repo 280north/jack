@@ -31,6 +31,7 @@ var form = '<form action="" method="get"><input type="text" name="name" value=""
 map["/"] = function(env) {
     var request = new Jack.Request(env),
         response = new Jack.Response();
+    response.headers["content-type"] = "text/html";
 
     response.write('hello ' + (request.GET("name") || form) +"<br />");
         
