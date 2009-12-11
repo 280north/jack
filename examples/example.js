@@ -3,11 +3,11 @@ var Jack = require("jack");
 var map = {};
 
 // an extremely simple Jack application
-map["/hello"] = function(env) {
+map["/hello"] = function(request) {
     return {
         status : 200,
-        headers : {"Content-Type":"text/plain"},
-        body : ["Hello from " + env["SCRIPT_NAME"]]
+        headers : {"content-type":"text/plain"},
+        body : ["Hello from " + request.scriptName]
     };
 }
 
@@ -20,7 +20,7 @@ map["/httproulette"] = function(env) {
     
     return {
         status : 200,
-        headers : {"Content-Type":"text/html"},
+        headers : {"content-type":"text/html"},
         body : ['whew!<br /><a href="httproulette">try again</a>']
     };
 }
@@ -28,42 +28,42 @@ map["/httproulette"] = function(env) {
 var form = '<form action="" method="get"><input type="text" name="name" value="" id="some_name"><input type="submit" value="go"></p></form>';
 
 // an index page demonstrating using a Response object
-map["/"] = function(env) {
-    var request = new Jack.Request(env),
-        response = new Jack.Response();
-    response.headers["content-type"] = "text/html";
+map["/"] = function(request) {
+    var req = new Jack.Request(request),
+        res = new Jack.Response();
+    res.headers["content-type"] = "text/html";
 
-    response.write('hello ' + (request.GET("name") || form) +"<br />");
-        
-    response.write('<a href="hello">hello</a><br />');
-    response.write('<a href="httproulette">httproulette</a><br />');
-    response.write('<a href="narwhal">narwhal</a><br />');
-    response.write('<a href="stream">stream</a><br />');
-    response.write('<a href="stream1">stream1</a><br />');
-    response.write('<a href="cookie">cookie</a><br />');
-    response.write('<a href="examples">examples</a><br />');
-    response.write('<a href="info">info</a><br />');
+    res.write('hello ' + (req.GET("name") || form) +"<br />");
+    
+    res.write('<a href="hello">hello</a><br />');
+    res.write('<a href="httproulette">httproulette</a><br />');
+    res.write('<a href="narwhal">narwhal</a><br />');
+    res.write('<a href="stream">stream</a><br />');
+    res.write('<a href="stream1">stream1</a><br />');
+    res.write('<a href="cookie">cookie</a><br />');
+    res.write('<a href="examples">examples</a><br />');
+    res.write('<a href="info">info</a><br />');
 
-    return response.finish();
+    return res.finish();
 }
 
 map["/narwhal"] = Jack.Narwhal;
 
 // use the JSONP middleware on this one
-map["/jsontest"] = Jack.JSONP(function(env) {
+map["/jsontest"] = Jack.JSONP(function(request) {
     return {
         status : 200,
-        headers : { "Content-Type" : "application/json" },
+        headers : { "content-type" : "application/json" },
         body : ["{ \"hello\" : \"world\" }"]
     };
 });
 
 map["/files"] = Jack.File(".");
 
-map["/stream"] = function(env) {
+map["/stream"] = function(request) {
     return {
         status : 200,
-        headers : {"Content-Type":"text/html", "Transfer-Encoding":"chunked"},
+        headers : {"content-type":"text/html", "transfer-encoding":"chunked"},
         body : { forEach : function(write) {
             for (var i = 0; i < 50; i++) { 
                 java.lang.Thread.currentThread().sleep(100); 
@@ -74,8 +74,8 @@ map["/stream"] = function(env) {
 }
 
 
-map["/stream1"] = function(env) {
-    var res = new Jack.Response(200, {"Transfer-Encoding":"chunked"});
+map["/stream1"] = function(request) {
+    var res = new Jack.Response(200, {"transfer-encoding":"chunked"});
     return res.finish(function(response) {
         for (var i = 0; i < 50; i++) { 
             java.lang.Thread.currentThread().sleep(100); 
@@ -84,10 +84,10 @@ map["/stream1"] = function(env) {
     });
 }
 
-map["/cookie"] = function(env) {
-    var request = new Jack.Request(env),
-        response = new Jack.Response();
-        
+map["/cookie"] = function(request) {
+    request = new Jack.Request(env);
+    var response = new Jack.Response();
+    
     var name = request.POST("name");
     
     if (typeof name === "string") {
@@ -106,11 +106,10 @@ map["/cookie"] = function(env) {
     return response.finish();
 }
 
-map["/info"] = function(env) {
-    var request = new Jack.Request(env),
-        response = new Jack.Response(200, { "Content-Type" : "text/plain" });
+map["/info"] = function(request) {
+    var response = new Jack.Response(200, {"content-type" : "text/plain"});
     
-    var params = request.params();
+    var params = new Jack.Request(request).params();
     
     response.write("========================= params =========================\n");
     
@@ -119,8 +118,8 @@ map["/info"] = function(env) {
     
     response.write("========================= env =========================\n");
     
-    for (var i in env)
-        response.write(i + "=>" + env[i] + "\n")
+    for (var i in request)
+        response.write(i + "=>" + request[i] + "\n")
     
     response.write("========================= system.env =========================\n");
     

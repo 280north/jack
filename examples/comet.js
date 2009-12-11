@@ -31,10 +31,9 @@ var queues = [];
 
 var map = {};
 
-map["/"] = function(env) {
-    var req = new Jack.Request(env)
-        res = new Jack.Response(),
-        message = req.params("message");
+map["/"] = function(request) {
+    var res = new Jack.Response(),
+        message = reqObj.params("message");
     
     if (message) {
         for (var i = 0; i < queues.length; i++)
@@ -53,7 +52,7 @@ map["/"] = function(env) {
     return res.finish();
 }
 
-map["/listen"] = function(env) {
+map["/listen"] = function(request) {
     var res = new Jack.Response(200, {"Transfer-Encoding":"chunked"});
     return res.finish(function(response) {
         

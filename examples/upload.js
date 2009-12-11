@@ -1,16 +1,16 @@
 var Request = require("jack/request").Request,
     Response = require("jack/response").Response;
 
-exports.app = function(env) {
-    var req = new Request(env),
+exports.app = function(request) {
+    var wrappedRequest = new Request(request),
         res = new Response();
     
-    if (req.isPost())
+    if (wrappedRequest.isPost())
     {
-        var params = req.params();
+        var params = wrappedRequest.params();
         for (var i in params)
         {
-            res.setHeader("Content-Type", "text/plain");
+            res.setHeader("content-type", "text/plain");
             if (typeof params[i] === "string")
                 res.write(i + " => " + params[i] + "\n");
             else
