@@ -1,12 +1,5 @@
 {
     "name": "jack",
-    "dependencies": [
-        "narwhal"
-    ],
-    "jars": [
-        "jars/simple-4.1.10.jar"
-    ],
-    "author": "Tom Robinson (http://tlrobinson.net/)",
     "description": "A library of JSGI middleware, handlers, and utilities, based on Rack",
     "keywords": [
         "web server",
@@ -14,6 +7,26 @@
         "jsgi",
         "rack",
         "wsgi"
+    ],
+    "author": "Tom Robinson (http://tlrobinson.net/)",
+    "contributors": [
+        "Tom Robinson (http://tlrobinson.net/) <tom@280north.com>",
+        "George Moschovitis (http://blog.gmosx.com/)",
+        "Kris Kowal (http://askawizard.blogspot.com/) <kris.kowal@cixar.com>",
+        "Neville Burnell",
+        "Isaac Z. Schlueter (http://blog.izs.me/)",
+        "Jan Varwig",
+        "Irakli Gozalishvili (http://rfobic.wordpress.com/)",
+        "Kris Zyp (http://www.sitepen.com/blog/author/kzyp/)",
+        "Kevin Dangoor (http://www.blueskyonmars.com/)",
+        "Antti Holvikari",
+        "Tim Schaub"
+    ],
+    "dependencies": [
+        "narwhal"
+    ],
+    "jars": [
+        "jars/simple-4.1.10.jar"
     ],
     "version": "0.1.2"
 }
