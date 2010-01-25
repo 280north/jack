@@ -62,10 +62,14 @@ Contributors
 * [Tom Robinson](http://tlrobinson.net/)
 * [George Moschovitis](http://blog.gmosx.com/)
 * [Kris Kowal](http://askawizard.blogspot.com/)
-* Irakli Gozalishvili
-* Jan Varwig
-* [Isaac Z. Schlueter](http://foohack.com/)
 * Neville Burnell
+* [Isaac Z. Schlueter](http://blog.izs.me/)
+* Jan Varwig
+* [Irakli Gozalishvili](http://rfobic.wordpress.com/)
+* [Kris Zyp](http://www.sitepen.com/blog/author/kzyp/)
+* [Kevin Dangoor](http://www.blueskyonmars.com/)
+* Antti Holvikari
+* Tim Schaub
 
 
 Acknowledgments
