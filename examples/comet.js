@@ -32,10 +32,10 @@ function randomMessage(){
 }
 randomMessage();
 
-map["/"] = function(env) {
-    var req = new Jack.Request(env),
-        res = new Jack.Response(),
-        message = req.params("message");
+map["/"] = function(request) {
+    var res = new Jack.Response(),
+        message = reqObj.params("message");
+    
     if (message) {
         cometWorker.port.postMessage(message);
 
@@ -51,27 +51,20 @@ map["/"] = function(env) {
     return res.finish();
 }
 
-map["/listen"] = function(env) {
-    var write, promise = new Promise(); // we could use defer() to be more secure
-    var response, writes = 0;
-    listeners.push(function(event){
-        var message = event.data;
-        // for each event, we indicate we have made progress, the write function
-        // will then get set, and we can write to the stream
-        promise.progress(response);
-        write(message);
-        nextLine();
-        writes++;
-        function nextLine(){
-            // HACK: Safari doesn't display chunked data until a certain number of bytes
-            for (var i = 0; i < 10; i++) {
-                write("                                                                                                                  "); 
-            }
-            write("<br />");
-        }
-        if(writes > 200){
-            // after a few writes, we will be done
-            promise.resolve(response);
+map["/listen"] = function(request) {
+    var res = new Jack.Response(200, {"Transfer-Encoding":"chunked"});
+    return res.finish(function(response) {
+        
+        // HACK: Safari doesn't display chunked data until a certain number of bytes
+        for (var i = 0; i < 10; i++)
+            response.write("................................................................................................................................<br />"); 
+        
+        var q = new MessageQueue();
+        queues.push(q);
+            
+        while (true) {
+            var message = q.take();
+            response.write("received: " + message + "<br />");
         }
     });
     response = {
