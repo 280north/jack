@@ -4,7 +4,7 @@
 exports.app = function(env) {
     return {
         status : 200,
-        headers : {"Content-Type":"text/plain"},
+        headers : {"content-type":"text/plain"},
         body : ["jackconfig.js is the default file jackup looks for!"]
     };
 }
