@@ -19,5 +19,11 @@
     "jars": [
         "jars/simple-4.1.10.jar"
     ],
+    "lean": {
+        "include": [
+            "lib/**/*",
+            "package.json"
+        ]
+    },
     "version": "0.2.4"
 }
