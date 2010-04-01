@@ -47,3 +47,6 @@ exports.testRetrieveSessionValue = function(){
     assert.isEqual("myval", retrievedVal);
 }
 
+if (require.main === module)
+    require("test/runner").run(exports);
+

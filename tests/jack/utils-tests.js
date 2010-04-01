@@ -199,6 +199,6 @@ function fixtureFile(name) {
     return File.join(File.dirname(module.path), "fixtures", name);
 }
 
-if (require.main === module.id)
+if (require.main === module)
     require("test/runner").run(exports);
 

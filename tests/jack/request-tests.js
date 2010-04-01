@@ -46,3 +46,7 @@ exports.testHasFormData = function() {
     var req = new Request(MockRequest.envFor(null, "", { "CONTENT_TYPE" : "text/html" }));
     assert.isEqual(req.hasFormData(), false);
 }
+
+if (require.main === module)
+    require("test/runner").run(exports);
+
