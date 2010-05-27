@@ -1,13 +1,4 @@
 {
-    "name": "jack",
-    "description": "A library of JSGI middleware, handlers, and utilities, based on Rack",
-    "keywords": [
-        "web server",
-        "server",
-        "jsgi",
-        "rack",
-        "wsgi"
-    ],
     "author": "Tom Robinson (http://tlrobinson.net/)",
     "contributors": [
         "Tom Robinson (http://tlrobinson.net/) <tom@280north.com>",
@@ -28,5 +19,11 @@
     "jars": [
         "jars/simple-4.1.10.jar"
     ],
-    "version": "0.1.2"
+    "lean": {
+        "include": [
+            "lib/**/*",
+            "package.json"
+        ]
+    },
+    "version": "0.2.4"
 }

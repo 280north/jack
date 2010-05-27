@@ -60,7 +60,7 @@ Contributors
 ------------
 
 * [Tom Robinson](http://tlrobinson.net/)
-* [George Moschovitis](http://blog.gmosx.com/)
+* [George Moschovitis](http://www.gmosx.com/)
 * [Kris Kowal](http://askawizard.blogspot.com/)
 * Neville Burnell
 * [Isaac Z. Schlueter](http://blog.izs.me/)
